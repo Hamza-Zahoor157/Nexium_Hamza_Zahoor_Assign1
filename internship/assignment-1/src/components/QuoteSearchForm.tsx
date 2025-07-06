@@ -1,31 +1,38 @@
+// src/components/QuoteSearchForm.tsx
 "use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 
-export default function QuoteSearchForm({
-  initialQuery = "",
-}: {
-  initialQuery?: string;
-}) {
-  const router = useRouter();
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
+
+export default function QuoteSearchForm() {
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("search") || "");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
+  const handleSearch = () => {
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("search", query);
+    window.location.href = newUrl.toString(); // Triggers a refresh with new query
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget as HTMLFormElement);
-        router.push(`?search=${formData.get("query")}`);
-      }}
-      className="flex gap-2 w-full max-w-[600px]"
-    >
-      <Input
-        name="query"
-        placeholder="Search by topic or author..."
-        className="flex-1"
-        defaultValue={initialQuery}
+    <div className="flex space-x-2 mb-4">
+      <input
+        type="text"
+        value={query}
+        onChange={handleChange}
+        placeholder="Search quotes..."
+        className="border px-4 py-2 rounded w-full"
       />
-      <Button type="submit">Search</Button>
-    </form>
+      <button
+        onClick={handleSearch}
+        className="bg-blue-600 text-white px-4 py-2 rounded"
+      >
+        Search
+      </button>
+    </div>
   );
 }

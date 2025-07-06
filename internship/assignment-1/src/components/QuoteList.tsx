@@ -1,30 +1,28 @@
+// src/components/QuoteList.tsx
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import quotes from "@/data/quotes.json";
 
 type Quote = {
-  id: string;
+  id: number;
   text: string;
   author: string;
   topic: string;
 };
 
-export default function QuoteList({
-  quotes,
-  searchQuery,
-  defaultQuotes,
-}: {
-  quotes: Quote[];
-  searchQuery: string;
-  defaultQuotes: Quote[];
-}) {
+export default function QuoteList() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search")?.toLowerCase() || "";
+
   const filteredQuotes = searchQuery
     ? quotes.filter(
         (quote) =>
-          quote.topic.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          quote.author.toLowerCase().includes(searchQuery.toLowerCase())
+          quote.topic.toLowerCase().includes(searchQuery) ||
+          quote.author.toLowerCase().includes(searchQuery)
       )
-    : defaultQuotes;
+    : quotes.slice(0, 3); // default quotes
 
   return (
     <div className="mt-8 space-y-4">
