@@ -14,7 +14,7 @@ This is **Assignment 1** for the Nexium AI-First Web Development Internship. Cod
 
 ## 🚀 Live Demo
 
-[See the live app on Vercel](https://nexiumhamzaassign1.vercel.app/)
+[See the live app on Vercel](https://nexium-hamza-assign1.vercel.app/)
 
 ---
 
