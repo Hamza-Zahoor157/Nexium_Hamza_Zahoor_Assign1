@@ -2,14 +2,21 @@
 
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
+type Quote = {
+  id: string;
+  text: string;
+  author: string;
+  topic: string;
+};
+
 export default function QuoteList({
   quotes,
   searchQuery,
   defaultQuotes,
 }: {
-  quotes: any[];
+  quotes: Quote[];
   searchQuery: string;
-  defaultQuotes: any[];
+  defaultQuotes: Quote[];
 }) {
   const filteredQuotes = searchQuery
     ? quotes.filter(
@@ -29,7 +36,7 @@ export default function QuoteList({
             </span>
           </CardHeader>
           <CardContent>
-            <blockquote>"{quote.text}"</blockquote>
+            <blockquote>&quot;{quote.text}&quot;</blockquote>
             <p className="mt-2 font-medium">— {quote.author}</p>
           </CardContent>
         </Card>
