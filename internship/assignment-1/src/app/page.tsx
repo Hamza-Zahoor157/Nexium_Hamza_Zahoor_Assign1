@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import QuoteSearchForm from "@/components/QuoteSearchForm";
 import QuoteList from "@/components/QuoteList";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -10,8 +11,13 @@ export default function Home() {
         <ThemeToggle />
       </div>
 
-      <QuoteSearchForm />
-      <QuoteList />
+      <Suspense fallback={<div>Loading search…</div>}>
+        <QuoteSearchForm />
+      </Suspense>
+
+      <Suspense fallback={<div>Loading quotes…</div>}>
+        <QuoteList />
+      </Suspense>
     </main>
   );
 }
