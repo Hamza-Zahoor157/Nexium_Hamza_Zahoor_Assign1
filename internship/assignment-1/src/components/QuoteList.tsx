@@ -1,4 +1,3 @@
-// src/components/QuoteList.tsx
 "use client";
 
 import { useSearchParams } from "next/navigation";
@@ -22,7 +21,7 @@ export default function QuoteList() {
           quote.topic.toLowerCase().includes(searchQuery) ||
           quote.author.toLowerCase().includes(searchQuery)
       )
-    : quotes.slice(0, 3); // default quotes
+    : quotes.slice(0, 3);
 
   return (
     <div className="mt-8 space-y-4">
